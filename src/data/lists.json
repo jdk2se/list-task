@@ -91,15 +91,15 @@
         "number": 10
       },
       {
-        "color": "Yellow",
+        "color": "#fef200",
         "number": 9
       },
       {
-        "color": "Green",
+        "color": "#3d90c7",
         "number": 40
       },
       {
-        "color": "Blue",
+        "color": "#ff748c",
         "number": 0
       }
     ]
