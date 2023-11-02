@@ -1,17 +1,25 @@
 <script setup lang="ts">
 import { useListStore } from "../stores/listStore";
 import List from "./List.vue";
-import AccordionListItem from "./AccordionListItem.vue";
+import { defineAsyncComponent } from "vue";
 
 const listStore = useListStore();
+const mapTypeComponents = {
+  mainList: defineAsyncComponent(() => import('./MainListItem.vue')),
+  squareList: defineAsyncComponent(() => import('./SquareListItem.vue')),
+}
+defineProps<{
+  componentName: string
+}>()
 </script>
 
 <template>
   <div class="accordion-list">
     <List v-for="list in listStore.lists" :key="list.title" :list="list">
-      <accordion-list-item
+      <component
           v-for="(item, index) in list.items"
           :key="index"
+          :is="mapTypeComponents[componentName]"
           :item="item"
           :index="index"
       />
@@ -23,7 +31,7 @@ const listStore = useListStore();
 .accordion-list {
   .accordion {
     background-color: #333;
-    color: #eee;
+    color: wheat;
     cursor: pointer;
     padding: 1rem;
     width: 100%;
@@ -38,7 +46,7 @@ const listStore = useListStore();
       border-radius: 1rem 1rem 0 0;
     }
 
-    &:nth-last-child(1) {
+    &:nth-last-child(2) {
       border-radius: 0 0 1rem 1rem;
     }
 
