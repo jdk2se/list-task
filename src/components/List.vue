@@ -17,7 +17,34 @@ const toggleItems = () => {
       @click="toggleItems"
   >{{ list.title }}</button>
   <div class="accordion-content" :style="{height: isActive ? 'auto': null}">
-    <slot name="actions"></slot>
-    <slot />
+    <div class="accordion-content__wrapper">
+      <slot />
+      <slot name="actions"></slot>
+    </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.accordion-content {
+  padding: 0 1rem;
+  background-color: #222;
+  color: #aaa;
+  height: 0;
+  overflow: hidden;
+  transition: height 0.2s ease-out;
+
+  &__wrapper {
+    padding: 0 0 10px;
+  }
+}
+
+.accordion-content ul {
+  list-style-type: circle;
+  margin: 1rem 0;
+  padding: 0.2rem;
+}
+
+.accordion-content ul li {
+  padding: 0.2rem 0;
+}
+</style>

@@ -8,6 +8,11 @@ export const useListStore = defineStore('ListStore', {
         };
     },
     getters: {
+        randomizedListItems: state => {
+            return (listIndex) => {
+
+            }
+        },
     },
     actions: {
         async fill() {

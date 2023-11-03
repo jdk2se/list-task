@@ -2,6 +2,7 @@
 import { useListStore } from "../stores/listStore";
 import List from "./List.vue";
 import { defineAsyncComponent } from "vue";
+import Button from "./form/Button.vue";
 
 const listStore = useListStore();
 const mapTypeComponents = {
@@ -20,7 +21,7 @@ defineProps({
   <div class="accordion-list">
     <List v-for="(list, listIndex) in listStore.lists" :key="list.title" :list="list">
       <template v-slot:actions>
-        <button>Randomize</button>
+        <Button text="Randomize"></Button>
       </template>
       <component
           v-for="(item, itemIndex) in list.items"
@@ -73,25 +74,6 @@ defineProps({
 
   .active:after {
     content: "\2212";
-  }
-
-  .accordion-content {
-    padding: 0 1rem;
-    background-color: #222;
-    color: #aaa;
-    height: 0;
-    overflow: hidden;
-    transition: height 0.2s ease-out;
-  }
-
-  .accordion-content ul {
-    list-style-type: circle;
-    margin: 1rem 0;
-    padding: 0.2rem;
-  }
-
-  .accordion-content ul li {
-    padding: 0.2rem 0;
   }
 }
 </style>
