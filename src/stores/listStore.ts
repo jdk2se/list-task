@@ -18,12 +18,24 @@ export const useListStore = defineStore('ListStore', {
         async fill() {
             this.lists = (await import('@/data/lists.json')).default;
         },
-        deleteItem(index: number, color: string) {
-            const item = this.lists[index].items.find((el: ListElement) => el.color === color);
+        deleteItem(listIndex: number, index: number) {
+            const item = this.lists[listIndex].items[index];
             if (item) {
                 item.number = (item.number - 1 >= 0) ? item.number - 1 : 0;
             }
         },
+        updateQuantity(listIndex: number, index: number, quantity: number) {
+            const item = this.lists[listIndex].items[index];
+            if (item) {
+                item.number = quantity;
+            }
+        },
+        changeColor(listIndex:number, index: number, color: string){
+            const item = this.lists[listIndex].items[index];
+            if (item) {
+                item.color = color;
+            }
+        }
     }
 });
 

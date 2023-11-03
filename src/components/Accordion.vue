@@ -6,7 +6,7 @@ import Button from "./form/Button.vue";
 
 const listStore = useListStore();
 const mapTypeComponents = {
-  mainList: defineAsyncComponent(() => import('./MainListItem.vue')),
+  mainList: defineAsyncComponent(() => import('./MainList.vue')),
   squareList: defineAsyncComponent(() => import('./SquareList.vue')),
 }
 defineProps({
@@ -20,7 +20,7 @@ defineProps({
 <template>
   <div class="accordion-list">
     <List v-for="(list, listIndex) in listStore.lists" :key="list.title" :list="list">
-      <template v-slot:actions>
+      <template v-slot:actions v-if="false">
         <Button text="Randomize"></Button>
       </template>
       <component

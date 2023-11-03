@@ -6,6 +6,8 @@ defineProps<{
   item: ListElement,
   index: number
 }>();
+
+defineEmits(['updateQuantity', 'changeColor']);
 </script>
 
 <template>
@@ -15,8 +17,18 @@ defineProps<{
       <span>item {{ index + 1 }}</span>
     </label>
     <section class="list-item__info">
-      <span>{{ item.number }}</span>
-      <div class="list-item__color" :style="{background: stringToColor(item.color)}" />
+      <input
+          type="number"
+          min="0"
+          :value="item.number"
+          @input="$emit('updateQuantity', parseInt($event.target.value))"
+      />
+      <input
+          type="color"
+          class="list-item__color"
+          :value="stringToColor(item.color)"
+          @change="$emit('changeColor', $event.target.value)"
+      />
     </section>
   </div>
 </template>
@@ -41,10 +53,18 @@ defineProps<{
     width: 20px;
     height: 20px;
     border-radius: 50%;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   label:hover {
     cursor: pointer;
+  }
+
+  input[type=number] {
+    width: 40px;
   }
 }
 </style>

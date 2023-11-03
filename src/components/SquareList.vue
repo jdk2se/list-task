@@ -4,6 +4,7 @@ import SquareListItem from "./SquareListItem.vue";
 import { useListStore } from "../stores/listStore";
 
 const props = defineProps<{
+  index: number,
   listIndex: number,
   item: ListElement,
 }>();
@@ -11,7 +12,7 @@ const props = defineProps<{
 const listStore = useListStore();
 
 const deleteItem = (color: string) => {
-  listStore.deleteItem(props.listIndex, color);
+  listStore.deleteItem(props.listIndex, props.index);
 };
 </script>
 
