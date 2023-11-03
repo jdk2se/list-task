@@ -1,14 +1,8 @@
 <script setup lang="ts">
-defineProps({
-  text: {
-    type: String,
-    default: 'Button'
-  }
-})
 </script>
 
 <template>
-  <button class="button-85" role="button">{{ text }}</button>
+  <button class="button-85" role="button"><slot /></button>
 </template>
 
 <style lang="scss" scoped>

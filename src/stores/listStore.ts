@@ -1,5 +1,6 @@
 import { defineStore, acceptHMRUpdate } from "pinia";
-import { ListElement, ListItem } from "../types/List";
+import { ColorItem, ListElement, ListItem } from "../types/List";
+import shuffle from "../helpers/ShuffleArray";
 
 export const useListStore = defineStore('ListStore', {
     state: () => {
@@ -8,11 +9,21 @@ export const useListStore = defineStore('ListStore', {
         };
     },
     getters: {
-        randomizedListItems: state => {
-            return (listIndex) => {
+        randomizedListItems() {
+            return (listIndex): ColorItem[] => {
+                const arr = [];
+                this.lists[listIndex].items.forEach((item, index) => {
+                    for (let i = 0; i < item.number; i++) {
+                        arr.push({
+                            index,
+                            color: item.color,
+                        });
+                    }
+                });
 
+                return shuffle(arr);
             }
-        },
+        }
     },
     actions: {
         async fill() {

@@ -3,6 +3,7 @@ import stringToColor from "../helpers/StringToColor";
 
 defineProps<{
   color: string,
+  index: number,
 }>();
 
 defineEmits(['deleteItem']);
@@ -12,7 +13,7 @@ defineEmits(['deleteItem']);
     <div
         class="list-item__color"
         :style="{background: stringToColor(color)}"
-        @click="$emit('deleteItem', color)"
+        @click="$emit('deleteItem', index)"
     />
 </template>
 

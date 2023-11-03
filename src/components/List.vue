@@ -19,7 +19,6 @@ const toggleItems = () => {
   <div class="accordion-content" :style="{height: isActive ? 'auto': null}">
     <div class="accordion-content__wrapper">
       <slot />
-      <slot name="actions"></slot>
     </div>
   </div>
 </template>

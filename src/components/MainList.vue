@@ -4,22 +4,22 @@ import { ListElement } from "../types/List";
 import MainListItem from "./MainListItem.vue";
 
 const props = defineProps<{
-  index: number,
   listIndex: number,
-  item: ListElement,
+  items: ListElement[],
 }>();
 
 const listStore = useListStore();
-const updateQuantity = (quantity: number) => {
-  listStore.updateQuantity(props.listIndex, props.index, quantity);
+const updateQuantity = (index: number, quantity: number) => {
+  listStore.updateQuantity(props.listIndex, index, quantity);
 };
-const changeColor = (color: string) => {
-  listStore.changeColor(props.listIndex, props.index, color);
+const changeColor = (index: number, color: string) => {
+  listStore.changeColor(props.listIndex, index, color);
 }
 </script>
 
 <template>
   <MainListItem
+      v-for="(item, index) in items"
       :item="item"
       :index="index"
       @updateQuantity="updateQuantity"

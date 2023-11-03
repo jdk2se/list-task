@@ -21,13 +21,13 @@ defineEmits(['updateQuantity', 'changeColor']);
           type="number"
           min="0"
           :value="item.number"
-          @input="$emit('updateQuantity', parseInt($event.target.value))"
+          @input="$emit('updateQuantity', index, parseInt($event.target.value))"
       />
       <input
           type="color"
           class="list-item__color"
           :value="stringToColor(item.color)"
-          @change="$emit('changeColor', $event.target.value)"
+          @change="$emit('changeColor', index, $event.target.value)"
       />
     </section>
   </div>
