@@ -1,21 +1,19 @@
 <script setup lang="ts">
-import { ListElement } from "../types/List";
 import stringToColor from "../helpers/StringToColor";
 
 defineProps<{
-  item: ListElement,
+  color: string,
 }>();
+
+defineEmits(['deleteItem']);
 </script>
 
 <template>
-  <div class="list-item">
-      <div
-          v-for="index in item.number"
-          :key="index"
-          class="list-item__color"
-          :style="{background: stringToColor(item.color)}"
-      />
-  </div>
+    <div
+        class="list-item__color"
+        :style="{background: stringToColor(color)}"
+        @click="$emit('deleteItem', color)"
+    />
 </template>
 
 <style lang="scss" scoped>

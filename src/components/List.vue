@@ -17,6 +17,7 @@ const toggleItems = () => {
       @click="toggleItems"
   >{{ list.title }}</button>
   <div class="accordion-content" :style="{height: isActive ? 'auto': null}">
+    <slot name="actions"></slot>
     <slot />
   </div>
 </template>

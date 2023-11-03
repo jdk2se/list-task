@@ -12,7 +12,7 @@ defineProps<{
   <div class="list-item">
     <label>
       <input type="checkbox" name="item"  />
-      <span>item {{ index }}</span>
+      <span>item {{ index + 1 }}</span>
     </label>
     <section class="list-item__info">
       <span>{{ item.number }}</span>

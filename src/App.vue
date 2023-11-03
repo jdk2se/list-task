@@ -1,12 +1,9 @@
 <script setup lang="ts">
 import { useListStore } from "./stores/listStore";
 import { onBeforeMount } from "vue";
-import MainList from "./components/MainList.vue";
-import SquareList from "./components/SquareList.vue";
-
+import Accordion from "./components/Accordion.vue";
 
 const listStore = useListStore();
-
 
 onBeforeMount(() => {
   listStore.fill();
@@ -15,8 +12,12 @@ onBeforeMount(() => {
 
 <template>
   <div class="container">
-    <MainList />
-    <SquareList />
+    <div class="main-list">
+      <Accordion component-name="mainList" />
+    </div>
+    <div class="square-list">
+      <Accordion component-name="squareList" />
+    </div>
   </div>
 </template>
 
@@ -26,5 +27,13 @@ onBeforeMount(() => {
   justify-content: space-between;
   max-width: 1200px;
   margin: 30px auto;
+
+  .main-list {
+    width: 40%;
+  }
+
+  .square-list {
+    width: 55%;
+  }
 }
 </style>

@@ -6,22 +6,29 @@ import { defineAsyncComponent } from "vue";
 const listStore = useListStore();
 const mapTypeComponents = {
   mainList: defineAsyncComponent(() => import('./MainListItem.vue')),
-  squareList: defineAsyncComponent(() => import('./SquareListItem.vue')),
+  squareList: defineAsyncComponent(() => import('./SquareList.vue')),
 }
-defineProps<{
-  componentName: string
-}>()
+defineProps({
+  componentName: {
+    type: String,
+    required: true
+  }
+})
 </script>
 
 <template>
   <div class="accordion-list">
-    <List v-for="list in listStore.lists" :key="list.title" :list="list">
+    <List v-for="(list, listIndex) in listStore.lists" :key="list.title" :list="list">
+      <template v-slot:actions>
+        <button>Randomize</button>
+      </template>
       <component
-          v-for="(item, index) in list.items"
-          :key="index"
+          v-for="(item, itemIndex) in list.items"
+          :key="itemIndex"
           :is="mapTypeComponents[componentName]"
           :item="item"
-          :index="index"
+          :list-index="listIndex"
+          :index="itemIndex"
       />
     </List>
   </div>
