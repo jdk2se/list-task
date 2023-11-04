@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useListStore } from "../stores/listStore";
 import List from "./List.vue";
-import { defineAsyncComponent } from "vue";
 
 defineProps({
   componentName: {
@@ -11,28 +10,24 @@ defineProps({
 })
 
 const listStore = useListStore();
-const mapTypeComponents = {
-  mainList: defineAsyncComponent(() => import('./MainList.vue')),
-  squareList: defineAsyncComponent(() => import('./SquareList.vue')),
-}
-
 </script>
 
 <template>
   <div class="accordion-list">
-    <List v-for="(list, listIndex) in listStore.lists" :key="list.title" :list="list">
-      <component
-          :is="mapTypeComponents[componentName]"
-          :items="list.items"
-          :list-index="listIndex"
-      />
-    </List>
+    <List
+        v-for="(list, listIndex) in listStore.lists"
+        :key="list.title"
+        :list="list"
+        :component-name="componentName"
+        :list-index="listIndex"
+    />
   </div>
 </template>
 
 <style lang="scss">
 .accordion-list {
   .accordion {
+    display: flex;
     background-color: #333;
     color: wheat;
     cursor: pointer;
@@ -53,7 +48,7 @@ const mapTypeComponents = {
       border-radius: 0 0 1rem 1rem;
     }
 
-    &:after {
+    &-title:after {
       content: "\002B";
       color: #eee;
       font-weight: bold;
@@ -67,7 +62,7 @@ const mapTypeComponents = {
     background-color: #426ef0;
   }
 
-  .active:after {
+  .accordion.active .accordion-title:after {
     content: "\2212";
   }
 }

@@ -1,19 +1,25 @@
 <script setup lang="ts">
 import { ListElement } from "../types/List";
 import stringToColor from "../helpers/StringToColor";
+import { ref, watch } from "vue";
 
-defineProps<{
+const props = defineProps<{
   item: ListElement,
-  index: number
+  index: number,
+  isChecked: boolean,
 }>();
 
 defineEmits(['updateQuantity', 'changeColor']);
+const checked = ref(false);
+watch(() => props.isChecked, (value) => {
+  checked.value = value;
+});
 </script>
 
 <template>
   <div class="list-item">
     <label>
-      <input type="checkbox" name="item"  />
+      <input type="checkbox" name="item" v-model="checked" />
       <span>item {{ index + 1 }}</span>
     </label>
     <section class="list-item__info">

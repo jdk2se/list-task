@@ -6,6 +6,7 @@ import MainListItem from "./MainListItem.vue";
 const props = defineProps<{
   listIndex: number,
   items: ListElement[],
+  isChecked: boolean,
 }>();
 
 const listStore = useListStore();
@@ -24,5 +25,6 @@ const changeColor = (index: number, color: string) => {
       :index="index"
       @updateQuantity="updateQuantity"
       @changeColor="changeColor"
+      :is-checked="isChecked"
   />
 </template>

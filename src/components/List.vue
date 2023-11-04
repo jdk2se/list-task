@@ -1,24 +1,46 @@
 <script setup lang="ts">
 import { ListItem } from "../types/List";
-import { ref } from "vue";
+import { defineAsyncComponent, ref } from "vue";
+import Checkbox from "./form/Checkbox.vue";
 
-defineProps<{list: ListItem}>();
+defineProps<{
+  list: ListItem,
+  componentName: string,
+  listIndex: number,
+}>();
 
 const isActive = ref(false);
 const toggleItems = () => {
   isActive.value = !isActive.value;
 };
+const mapTypeComponents = {
+  mainList: defineAsyncComponent(() => import('./MainList.vue')),
+  squareList: defineAsyncComponent(() => import('./SquareList.vue')),
+}
+
+const isChecked= ref(true);
+const checkboxToggle = (value: boolean) => {
+  isChecked.value = value;
+}
 </script>
 
 <template>
-  <button
+  <div
       class="accordion"
       :class="{active: isActive}"
       @click="toggleItems"
-  >{{ list.title }}</button>
+  >
+    <Checkbox v-if="componentName === 'mainList'" :is-checked="isChecked" @changed="checkboxToggle" />
+    <div class="accordion-title">{{ list.title }}</div>
+  </div>
   <div class="accordion-content" :style="{height: isActive ? 'auto': null}">
     <div class="accordion-content__wrapper">
-      <slot />
+      <component
+          :is="mapTypeComponents[componentName]"
+          :items="list.items"
+          :list-index="listIndex"
+          :is-checked="isChecked"
+      />
     </div>
   </div>
 </template>
